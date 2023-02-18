@@ -4,12 +4,12 @@ import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js.map';
 import Employees from "./components/Employees";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 function App() {
 
-    const [selectedTeam, setTeam] = useState("Team B");
-    const [employees, setEmployees] = useState([
+    const [selectedTeam, setTeam] = useState(JSON.parse(localStorage.getItem("selectedTeam")) || "Team B");
+    const [employees, setEmployees] = useState(JSON.parse(localStorage.getItem("employeeList")) ||[
         {
             id: 1,
             fullName: "Bob Jones",
@@ -95,6 +95,14 @@ function App() {
             teamName: "TeamD"
         }
     ]);
+
+    useEffect(() => {
+        localStorage.setItem('employeeList', JSON.stringify(employees));
+    }, [employees]);
+
+    useEffect(() => {
+        localStorage.setItem('selectedTeam', JSON.stringify(selectedTeam));
+    }, [selectedTeam]);
 
     function handleTeamSelectedChange(event) {
         setTeam(event.target.value);
