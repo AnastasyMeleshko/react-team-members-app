@@ -8,7 +8,7 @@ import {useState} from "react";
 
 function App() {
 
-    const [selectedTeam, setTeam] = useState("teamB");
+    const [selectedTeam, setTeam] = useState("Team B");
     const [employees, setEmployees] = useState([
         {
             id: 1,
@@ -110,7 +110,9 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header selectedTeam={selectedTeam}
+              teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length }
+      />
       <Employees employees={employees}
                  selectedTeam={selectedTeam}
                  handleTeamSelectedChange={handleTeamSelectedChange}
