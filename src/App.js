@@ -4,7 +4,11 @@ import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js.map';
 import Employees from "./components/Employees";
+import GroupedTeamMembers from "./components/GroupedTeamMembers";
+import Nav from "./components/Nav";
+import NotFound from "./components/NotFound";
 import {useState, useEffect} from "react";
+import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
 
@@ -118,16 +122,27 @@ function App() {
 
   return (
     <div className="App">
-      <Header selectedTeam={selectedTeam}
-              teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length }
-      />
-      <Employees employees={employees}
-                 selectedTeam={selectedTeam}
-                 handleTeamSelectedChange={handleTeamSelectedChange}
-                 handleEmployeeCardClick={handleEmployeeCardClick}
+        <Router>
+            <Nav/>
+            <Header selectedTeam={selectedTeam}
+                    teamMemberCount={employees.filter((employee) => employee.teamName === selectedTeam).length }/>
+            <Routes>
+                <Route path="/"
+                       element={<Employees employees={employees}
+                                             selectedTeam={selectedTeam}
+                                             handleTeamSelectedChange={handleTeamSelectedChange}
+                                             handleEmployeeCardClick={handleEmployeeCardClick}/>}>
 
-      />
-      <Footer/>
+                </Route>
+                <Route path="/GroupedTeamMembers"
+                       element={<GroupedTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>}>
+                </Route>
+                <Route path="/*"
+                       element={<NotFound/>}>
+                </Route>
+            </Routes>
+            <Footer/>
+        </Router>
     </div>
   );
 }
