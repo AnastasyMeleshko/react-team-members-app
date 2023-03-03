@@ -135,7 +135,7 @@ function App() {
 
                 </Route>
                 <Route path="/GroupedTeamMembers"
-                       element={<GroupedTeamMembers employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>}>
+                       element={<GroupedTeamMembers key={Math.random() - 1} employees={employees} selectedTeam={selectedTeam} setTeam={setTeam}/>}>
                 </Route>
                 <Route path="/*"
                        element={<NotFound/>}>
